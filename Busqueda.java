@@ -1,49 +1,62 @@
-package Archivos;
+package Ejercisios;
 
-import java.util.Scanner;
+// Genera una cola/pila para N elementos (N dado por el usuario) y llenalo con numeros
+// aleatorios (0 a 25).
+// Indica la posición (o indice) de la primera y ultima aparición del dato X en la estructura,
+// donde X a sido dado por el usuario. codigo en java
 import java.util.Queue;
 import java.util.Random;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Busqueda {
-
+    public Queue<Integer> cola1 = new LinkedList<>();
     public static Scanner sc = new Scanner(System.in);
-    // Stack<Integer> pila = new Stack<>();
-    public static Queue<Integer> cola = new LinkedList<>();
-    public static Random rand = new Random();
+    public static Random rnd = new Random();
 
     public static void main(String[] args) {
+        Busqueda bqd = new Busqueda();
+        Busqueda.Cola(new LinkedList<>());
 
-        System.out.print("Ingrese el valor de N: ");
-        int N = sc.nextInt();
+    }
 
-        for (int i = 0; i < N; i++) {
-            int num = rand.nextInt(26);
-            cola.add(num);
-            // pila.push(num);
+    public static Queue<Integer> Cola(Queue<Integer> c) {
+        System.out.println("¿Cuantos elementos desea ingresar? ");
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            c.add(rnd.nextInt(26));
         }
+        for (int queue : c) {
+            System.out.print(" " + queue);
+        }
+        System.out.println();
 
-        System.out.println("La cola/pila generada es: " + cola);
+        System.out.println("Ingresa el numero a buscar: ");
+        int num = sc.nextInt();
 
-        System.out.print("Ingrese el valor de X: ");
-        int X = sc.nextInt();
-        sc.close();
-
-        int primeraAparicion = -1;
-        int ultimaAparicion = -1;
+        int primeraPos = -1;
+        int ultimaPos = -1;
         int i = 0;
-        for (int num : cola) {
-            if (num == X) {
-                if (primeraAparicion == -1) {
-                    primeraAparicion = i;
+
+        for (int number : c) {
+            if (number == num) {
+                if (primeraPos == -1) {
+                    primeraPos = i;
                 }
-                ultimaAparicion = i;
+                ultimaPos = i;
             }
             i++;
         }
 
-        System.out.println("La primera aparición de " + X + " es en la posición " + primeraAparicion);
-        System.out.println("La última aparición de " + X + " es en la posición " + ultimaAparicion);
-    }
+        // Imprimir resultados
+        if (primeraPos == -1) {
+            System.out.println("El número " + num + " no se encuentra en la cola/pila.");
+        } else {
+            System.out.println("La primera aparición del número " + num + " está en la posición " + primeraPos + ".");
+            System.out.println("La última aparición del número " + num + " está en la posición " + ultimaPos + ".");
+        }
 
+        return c;
+
+    }
 }
